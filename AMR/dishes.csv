@@ -1,0 +1,7 @@
+FoodName,Price,Category,Main Ingredient,Quantity,Status,Country,Sale Price
+Chicken Biryani,1200,Main Course,Chicken,1 Plate,Available,Pakistan,1080.0
+Beef Burger,550,Fast Food,Beef,1 Piece,Available,Pakistan,495.0
+Veg Sandwich,300,Fast Food,Vegetables,1 Piece,Unavailable,Pakistan,270.0
+Mutton Karahi,1800,Main Course,Mutton,1 Dish,Available,Pakistan,1620.0
+Zinger Burger,600,Fast Food,Chicken,1 Piece,Available,Pakistan,540.0
+Paneer Biryani,950,Main Course,Paneer,1 Plate,Unavailable,Pakistan,855.0

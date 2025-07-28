@@ -5,6 +5,7 @@ import pandas
 
 web_url = "https://www.pchotels.com/hotel-and-resort/pearl-continental-hotel-karachi"
 response = requests.get(web_url)
+print(response)
 
 
 get_data = BeautifulSoup(response.text, "html.parser")

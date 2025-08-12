@@ -10,3 +10,9 @@ def About(request):
 
 def Contact(request):
     return render(request, "my_app/Contact.html")
+
+def Services(request):
+    return render(request, "my_app/Services.html")
+
+def Feedback(request):
+    return render(request, "my_app/Feedback.html")

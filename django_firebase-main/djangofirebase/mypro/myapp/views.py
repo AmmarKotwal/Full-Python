@@ -1,6 +1,9 @@
 from django.shortcuts import  render, redirect
 from mypro.firebase_config import db
 from django.contrib import messages
+import requests
+
+FIREBASE_KEY = "AIzaSyBTWC4mhBhkrcRbqh0Xyr8cjLMuuQAa5uo"
 
 def Contacts(request):
     if request.method=="POST":
@@ -30,3 +33,39 @@ def ShowData(request):
 def Delete(req,id):
     db.collection("contact").document(id).delete()
     return redirect("show")
+
+def register(req):
+    if req.method == "POST":
+        n = req.POST.get("name")
+        e = req.POST.get("email")
+        p = req.POST.get("password")
+
+        if not n or not e or not p:
+            messages.error(req, "All Fields Are Required")
+            return redirect("reg")
+
+        if len(p) < 8:
+            messages.error(req, "Password Must Be 8 Characters Long")
+            return redirect("reg")
+
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={FIREBASE_KEY}"
+        payload = {
+        "email" : e,
+        "password" : p,
+        "requestSecureToken" : True
+        }
+
+        response = requests.post(url,payload)
+
+        if response.status_code == 200:
+            errorMsg = response.json()
+            db.collection("User").add({
+                "Name" : n,
+                "Email": e,
+                "Password": p,
+                "Role": "User",
+            })
+            messages.success(req,"User Registered Successfully")
+            return redirect("reg")
+
+    return render(req, "myapp/Register.html")

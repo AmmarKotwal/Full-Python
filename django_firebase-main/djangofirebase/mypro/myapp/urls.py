@@ -6,6 +6,7 @@ urlpatterns = [
     path("",views.Contacts, name="con"),
     path("show",views.ShowData, name="show"),
     path("show/del/<str:id>", views.Delete, name="delcon"),
-    path("r", views.register, name="reg")
-
+    path("r", views.register, name="reg"),
+    path("l", views.login, name="log"),
+    path("d", views.dashboard, name="dash")
 ]

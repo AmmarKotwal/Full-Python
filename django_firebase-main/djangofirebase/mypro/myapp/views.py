@@ -1,9 +1,8 @@
+from django.conf import settings
 from django.shortcuts import  render, redirect
 from mypro.firebase_config import db
 from django.contrib import messages
 import requests
-
-FIREBASE_KEY = "AIzaSyBTWC4mhBhkrcRbqh0Xyr8cjLMuuQAa5uo"
 
 def Contacts(request):
     if request.method=="POST":
@@ -48,7 +47,7 @@ def register(req):
             messages.error(req, "Password Must Be 8 Characters Long")
             return redirect("reg")
 
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={FIREBASE_KEY}"
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={settings.FIRE}"
         payload = {
         "email" : e,
         "password" : p,
@@ -69,3 +68,38 @@ def register(req):
             return redirect("reg")
 
     return render(req, "myapp/Register.html")
+
+def login(req):
+    if req.method == "POST":
+        e = req.POST.get("email")
+        p = req.POST.get("password")
+
+        if not e or not p:
+            messages.error(req, "All Fields Are Required")
+            return redirect("log")
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={settings.FIRE}"
+        payload = {
+            "email": e,
+            "password": p,
+            "requestSecureToken": True
+        }
+        res = requests.post(url,json=payload)
+
+        if res.status_code == 200:
+            userInfo = res.json()
+            req.session["email"] = userInfo.get("email")
+            return redirect("dash")
+        else:
+            error = res.json().get("error", {}).get("message","Message Not Found")
+            print(error)
+            if error == "INVALID_LOGIN_CREDENTIALS":
+                messages.error(req,"Invalid Credentials Please LogIn again")
+            elif error == "INVALID_PASSWORD":
+                messages.error(req, "Password Is Incorrect")
+            return redirect("log")
+    return render(req, "myapp/Login.html")
+
+
+def dashboard(req):
+    uemail = req.session["email"]
+    return render(req,"myapp/Dashboard.html",{"e" : uemail})

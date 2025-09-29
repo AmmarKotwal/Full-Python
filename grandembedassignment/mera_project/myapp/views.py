@@ -1,13 +1,12 @@
 from http.client import responses
 
 import requests
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from mera_project.firebase_config import db
 
 # Create your views here.
-
-FIREBASE_KEY = "AIzaSyBTWC4mhBhkrcRbqh0Xyr8cjLMuuQAa5uo"
 
 def register(req):
     if req.method == "POST":
@@ -23,7 +22,7 @@ def register(req):
         if len(p) < 8:
             messages.error(req, "Password must be 8 characters long")
             return redirect("reg")
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={FIREBASE_KEY}"
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={settings.FIRE}"
         playload = {
             "email" : e,
             "password" : p,
@@ -62,7 +61,7 @@ def Login(req):
             messages.error(req, "All Fields are Required")
             return redirect("log")
 
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_KEY}"
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={settings.FIRE}"
         playload = {
             "email": e,
             "password": p,

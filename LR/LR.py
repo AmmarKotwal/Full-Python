@@ -5,9 +5,9 @@ from sklearn.linear_model import LinearRegression
 # (pip install openpyxl)
 
 # pip install numpy scipy pandas scikit-learn matplotlib
-mydata = p.read_excel("ammar.xlsx")
-x=mydata[["Hours Studied (X)"]]
-y=mydata["Marks (Y)"]
+mydata = p.read_csv("Salary_dataset.csv")
+x=mydata[["YearsExperience"]]
+y=mydata["Salary"]
 
 # null hatane k liye
 x=x.dropna()
@@ -20,7 +20,7 @@ model.fit(x,y)
 print(f"m value = {model.coef_[0]:.2f}")
 print(f"b value = {model.intercept_:.2f}")
 
-user_value=float(input("Enter Value : "))
+user_value=float(input("Enter Years Of Experience: "))
 predict_value = model.predict([[user_value]])
 
-print(f"On {user_value} this study hour\nScore will be: {predict_value[0]:.2f}")
+print(f"On {user_value} this experience\nSalary will be: {predict_value[0]:.2f}")

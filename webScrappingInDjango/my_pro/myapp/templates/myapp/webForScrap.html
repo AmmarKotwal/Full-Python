@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Education Blogs - Propakistani</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f6f9fc;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: green;
+      margin-bottom: 30px;
+      font-style: italic;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    h2 {
+      color: green;
+    }
+
+    .blog-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      width: 90%;
+      margin: auto;
+    }
+
+    .card {
+      /* Soft green gradient - elegant & soothing */
+      background: linear-gradient(135deg, #a8e6cf, #56ab2f, #6fbf73);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card h2 {
+      color: #ffffff;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #ffffff;  /* White text inside the green card */
+      font-size: 15px;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .read-more:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>Web Scrapping</h1>
+  <h2>ProPakistani Blogs:-</h2>
+
+  <div class="blog-container">
+    {% for title, link, desc in blog_data %}
+      <div class="card">
+        <p>{{ desc }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
